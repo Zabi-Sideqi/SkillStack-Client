@@ -1,0 +1,390 @@
+@import 'tailwindcss';
+
+/* Global dark/light mode styles */
+:root {
+  --background: 0 0% 100%;
+  --foreground: 222.2 84% 4.9%;
+}
+
+.dark {
+  --background: 222.2 84% 4.9%;
+  --foreground: 210 40% 98%;
+}
+
+body {
+  background-color: hsl(var(--background));
+  color: hsl(var(--foreground));
+  transition: background-color 0.3s ease, color 0.3s ease;
+  min-height: 100vh;
+}
+
+/* Dark mode overrides for existing styles */
+.dark body {
+  background: linear-gradient(
+    to bottom right,
+    rgb(2 6 23),
+    rgb(49 46 129 / 0.5),
+    rgb(2 6 23)
+  ) !important;
+  color: rgb(255 255 255) !important;
+}
+
+html:not(.dark) body {
+  background: linear-gradient(
+    to bottom right,
+    rgb(255 255 255),
+    rgb(224 231 255),
+    rgb(248 250 252)
+  ) !important;
+  color: rgb(15 23 42) !important; /* Dark text for light background */
+}
+
+/* Make sure page containers respect dark mode */
+.dark #root > div,
+.dark .min-h-screen {
+  background: transparent;
+}
+
+html:not(.dark) #root > div,
+html:not(.dark) .min-h-screen {
+  background: transparent;
+}
+
+/* Override all text elements to use correct colors */
+.dark h1,
+.dark h2,
+.dark h3,
+.dark h4,
+.dark h5,
+.dark h6,
+.dark p,
+.dark span,
+.dark a,
+.dark label,
+.dark li {
+  color: rgb(255 255 255) !important;
+}
+
+html:not(.dark) h1,
+html:not(.dark) h2,
+html:not(.dark) h3,
+html:not(.dark) h4,
+html:not(.dark) h5,
+html:not(.dark) h6,
+html:not(.dark) p,
+html:not(.dark) span,
+html:not(.dark) a,
+html:not(.dark) label,
+html:not(.dark) li {
+  color: rgb(15 23 42) !important; /* Dark slate text */
+}
+
+/* Input fields and placeholders */
+.dark input,
+.dark textarea,
+.dark select {
+  color: rgb(255 255 255) !important;
+  background-color: rgb(30 41 59) !important; /* Dark slate background */
+  border-color: rgb(71 85 105) !important;
+}
+
+html:not(.dark) input,
+html:not(.dark) textarea,
+html:not(.dark) select {
+  color: rgb(15 23 42) !important;
+  background-color: rgb(255 255 255) !important;
+  border-color: rgb(203 213 225) !important;
+}
+
+/* Placeholder text */
+.dark input::placeholder,
+.dark textarea::placeholder {
+  color: rgb(148 163 184) !important; /* Light gray for dark mode */
+}
+
+html:not(.dark) input::placeholder,
+html:not(.dark) textarea::placeholder {
+  color: rgb(100 116 139) !important; /* Dark gray for light mode */
+}
+
+/* Buttons - override dummyStyles */
+.dark button {
+  color: rgb(255 255 255) !important;
+}
+
+html:not(.dark) button {
+  color: rgb(15 23 42) !important;
+}
+
+/* Specific overrides for components with hardcoded colors */
+.dark div,
+.dark section,
+.dark article {
+  color: inherit;
+}
+
+html:not(.dark) div,
+html:not(.dark) section,
+html:not(.dark) article {
+  color: inherit;
+}
+
+/* Navbar styles - override dark backgrounds */
+.dark nav,
+.dark header {
+  background-color: rgb(15 23 42) !important; /* Dark slate */
+  color: rgb(255 255 255) !important;
+}
+
+html:not(.dark) nav,
+html:not(.dark) header {
+  background-color: rgb(248 250 252) !important; /* Light gray/blue */
+  color: rgb(15 23 42) !important;
+  border-bottom: 1px solid rgb(226 232 240);
+}
+
+/* Sidebar styles - override dark backgrounds */
+.dark aside,
+.dark [role='complementary'] {
+  background-color: rgb(15 23 42) !important; /* Dark slate */
+  color: rgb(255 255 255) !important;
+}
+
+html:not(.dark) aside,
+html:not(.dark) [role='complementary'] {
+  background-color: rgb(248 250 252) !important; /* Light gray/blue */
+  color: rgb(15 23 42) !important;
+  border-right: 1px solid rgb(226 232 240);
+}
+
+/* Sidebar buttons and links */
+.dark aside button,
+.dark aside a {
+  color: rgb(255 255 255) !important;
+}
+
+html:not(.dark) aside button,
+html:not(.dark) aside a {
+  color: rgb(15 23 42) !important;
+}
+
+/* Cards and containers with dark backgrounds */
+.dark [class*='bg-slate'],
+.dark [class*='bg-gray'],
+.dark [class*='bg-indigo'] {
+  background-color: rgb(30 41 59) !important; /* Lighter dark slate for cards */
+}
+
+html:not(.dark) [class*='bg-slate'],
+html:not(.dark) [class*='bg-gray'],
+html:not(.dark) [class*='bg-indigo'] {
+  background-color: rgb(255 255 255) !important;
+  border: 1px solid rgb(226 232 240);
+}
+
+/* Force specific logo/branding text to always be light colored */
+.dark [class*='logoTitle'],
+.dark [class*='logoSubtitle'],
+html:not(.dark) [class*='logoTitle'],
+html:not(.dark) [class*='logoSubtitle'] {
+  color: rgb(165 243 252) !important; /* Cyan-200 - always light */
+}
+
+/* Keep sidebar header text always light for branding consistency */
+.dark aside h1,
+.dark aside p,
+html:not(.dark) aside h1,
+html:not(.dark) aside p {
+  color: rgb(165 243 252) !important; /* Cyan-200 */
+}
+
+/* Keep navbar title "Hexagon Quiz App" always light */
+.dark [class*='titleText'],
+html:not(.dark) [class*='titleText'] {
+  background: none !important; /* Remove gradient */
+  -webkit-background-clip: unset !important;
+  background-clip: unset !important;
+  -webkit-text-fill-color: rgb(
+    165 243 252
+  ) !important; /* Override transparent */
+  color: rgb(165 243 252) !important; /* Cyan-200 - always light */
+}
+
+/* Keep navbar title container consistent */
+.dark nav h1,
+html:not(.dark) nav h1 {
+  background: none !important;
+  -webkit-background-clip: unset !important;
+  background-clip: unset !important;
+  -webkit-text-fill-color: rgb(165 243 252) !important;
+  color: rgb(165 243 252) !important;
+}
+
+/* Super specific override for Hexagon Quiz App text - ALWAYS light */
+nav h1,
+header h1,
+[class*='titleText'],
+[class*='titleContainer'] h1,
+[class*='titleBackground'] h1 {
+  background: none !important;
+  background-image: none !important;
+  -webkit-background-clip: unset !important;
+  background-clip: unset !important;
+  -webkit-text-fill-color: rgb(165 243 252) !important;
+  color: rgb(165 243 252) !important;
+}
+
+/* Override animate-gradient class specifically */
+.animate-gradient,
+h1.animate-gradient,
+[class*='animate-gradient'] {
+  background: none !important;
+  background-image: none !important;
+  -webkit-background-clip: unset !important;
+  background-clip: unset !important;
+  -webkit-text-fill-color: rgb(165 243 252) !important;
+  color: rgb(165 243 252) !important;
+  animation: none !important;
+}
+
+/* Mobile menu z-index fix - ensure it appears in front of all content */
+[class*='mobileMenuPanel'],
+.md\:hidden [class*='MenuPanel'],
+nav [class*='absolute'],
+nav > div > div[class*='absolute'],
+.absolute.right-4.top-full {
+  z-index: 9999 !important;
+  position: absolute !important;
+}
+
+/* Extra specific for mobile menu dropdown */
+nav .absolute[class*='bg-slate-950'],
+nav .absolute[class*='backdrop-blur'],
+div.absolute.rounded-xl.shadow-2xl {
+  z-index: 9999 !important;
+}
+
+/* Dropdown menus should appear above all cards and content */
+[role='menu'],
+[class*='DropdownMenu'],
+[class*='dropdown'],
+div[data-radix-popper-content-wrapper],
+[data-state='open'] {
+  z-index: 10000 !important;
+}
+
+/* Ensure theme toggle button and its dropdown are always on top */
+button[aria-label*='Toggle'],
+button[aria-label*='theme'] {
+  z-index: 9999 !important;
+  position: relative !important;
+}
+
+/* SUPER AGGRESSIVE: Login/Signup pages - FORCE dark text in light mode with nice colors */
+html:not(.dark) .min-h-screen h2,
+html:not(.dark) .min-h-screen h1,
+html:not(.dark) .min-h-screen h3,
+html:not(.dark) form h2,
+html:not(.dark) form h1,
+html:not(.dark) form h3 {
+  background: none !important;
+  background-image: none !important;
+  -webkit-background-clip: unset !important;
+  background-clip: unset !important;
+  -webkit-text-fill-color: rgb(30 41 59) !important;
+  color: rgb(30 41 59) !important; /* Slate-800 - Dark but elegant */
+}
+
+html:not(.dark) .min-h-screen p,
+html:not(.dark) .min-h-screen span:not([class*='icon']):not(button span),
+html:not(.dark) .min-h-screen label,
+html:not(.dark) form p,
+html:not(.dark) form span:not([class*='icon']):not(button span),
+html:not(.dark) form label {
+  background: none !important;
+  background-image: none !important;
+  -webkit-background-clip: unset !important;
+  background-clip: unset !important;
+  -webkit-text-fill-color: rgb(51 65 85) !important;
+  color: rgb(51 65 85) !important; /* Slate-700 - Softer than headings */
+}
+
+/* Override ALL cyan/violet text classes in light mode for login/signup */
+html:not(.dark) .text-cyan-100,
+html:not(.dark) .text-cyan-200,
+html:not(.dark) .text-cyan-300,
+html:not(.dark) .text-cyan-400,
+html:not(.dark) [class*='text-cyan'] {
+  color: rgb(51 65 85) !important;
+  -webkit-text-fill-color: rgb(51 65 85) !important;
+}
+
+/* Links in login/signup should be beautiful blue for visibility */
+html:not(.dark) form a,
+html:not(.dark) .min-h-screen a:not([class*='backButton']) {
+  background: none !important;
+  background-image: none !important;
+  -webkit-background-clip: unset !important;
+  background-clip: unset !important;
+  -webkit-text-fill-color: rgb(37 99 235) !important;
+  color: rgb(37 99 235) !important; /* Blue-600 - Rich, professional blue */
+  text-decoration: none !important;
+  transition: color 0.2s ease !important;
+}
+
+html:not(.dark) form a:hover,
+html:not(.dark) .min-h-screen a:not([class*='backButton']):hover {
+  -webkit-text-fill-color: rgb(29 78 216) !important;
+  color: rgb(29 78 216) !important; /* Blue-700 on hover */
+  text-decoration: underline !important;
+}
+
+/* Placeholders in login/signup - subtle gray */
+html:not(.dark) form input::placeholder,
+html:not(.dark) .min-h-screen input::placeholder {
+  color: rgb(100 116 139) !important; /* Slate-500 - Nice medium gray */
+  opacity: 1 !important;
+}
+
+/* Login/Signup pages - fix ALL text colors in light mode */
+html:not(.dark) [class*='login'],
+html:not(.dark) [class*='signup'],
+html:not(.dark) [class*='Login'],
+html:not(.dark) [class*='Signup'] {
+  color: rgb(15 23 42) !important;
+}
+
+/* All headings, labels, paragraphs in forms */
+html:not(.dark) [class*='heading'],
+html:not(.dark) [class*='label'],
+html:not(.dark) [class*='labelText'],
+html:not(.dark) [class*='headingText'],
+html:not(.dark) [class*='subtitle'],
+html:not(.dark) [class*='description'],
+html:not(.dark) [class*='text']:not([class*='button']) {
+  color: rgb(15 23 42) !important;
+}
+
+/* Make sure ALL form text is readable in light mode */
+html:not(.dark) form,
+html:not(.dark) form *:not(input):not(button) {
+  color: rgb(15 23 42) !important;
+}
+
+html:not(.dark) form h1,
+html:not(.dark) form h2,
+html:not(.dark) form h3,
+html:not(.dark) form p,
+html:not(.dark) form label,
+html:not(.dark) form span:not([class*='icon']),
+html:not(.dark) form a,
+html:not(.dark) form div:not([class*='icon']):not([class*='input']) {
+  color: rgb(15 23 42) !important;
+}
+
+/* Placeholder text should also be dark in light mode */
+html:not(.dark) form input::placeholder,
+html:not(.dark) form textarea::placeholder {
+  color: rgb(71 85 105) !important;
+  opacity: 1 !important;
+}
